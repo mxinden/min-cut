@@ -6,11 +6,16 @@ import (
 	"strings"
 )
 
-func fileToGraph(filePath string) ([]node, error) {
-	graph := []node{}
+type node struct {
+	id     int
+	connTo []int
+}
+
+func fileToGraph(filePath string) (graph, error) {
+	nodes := []node{}
 	content, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return graph, err
+		return graph{}, err
 	}
 
 	stringNodes := strings.Split(string(content), "\n")
@@ -20,10 +25,13 @@ func fileToGraph(filePath string) ([]node, error) {
 		}
 		n, err := parseNode(stringNode)
 		if err != nil {
-			return graph, err
+			return graph{}, err
 		}
-		graph = append(graph, n)
+		nodes = append(nodes, n)
 	}
+
+	edges := nodesToEdges(nodes)
+	graph := graph{len(nodes), len(edges), edges}
 	return graph, nil
 }
 
@@ -48,4 +56,19 @@ func parseNode(s string) (node, error) {
 		n.connTo = append(n.connTo, id)
 	}
 	return n, nil
+}
+
+func nodesToEdges(nodes []node) []edge {
+	edges := []edge{}
+	for _, n := range nodes {
+		for _, c := range n.connTo {
+			// Already present in edges
+			if n.id > c {
+				continue
+			}
+
+			edges = append(edges, edge{n.id, c})
+		}
+	}
+	return edges
 }

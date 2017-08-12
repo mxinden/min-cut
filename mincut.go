@@ -1,6 +1,10 @@
 package mincut
 
-type node struct {
-	id     int
-	connTo []int
+type graph struct {
+	n, e  int
+	edges []edge
+}
+
+type edge struct {
+	a, b int
 }

@@ -7,16 +7,14 @@ import (
 )
 
 func TestFileToGraph(t *testing.T) {
-	graph, err := fileToGraph("./examples/2")
+	g, err := fileToGraph("./examples/2")
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedGraph := []node{
-		{1, []int{2}},
-		{2, []int{1}},
-	}
 
-	if !reflect.DeepEqual(expectedGraph, graph) {
-		t.Fatal(fmt.Sprintf("Expected %v, got %v", expectedGraph, graph))
+	expectedGraph := graph{2, 1, []edge{{1, 2}}}
+
+	if !reflect.DeepEqual(expectedGraph, g) {
+		t.Fatal(fmt.Sprintf("Expected %v, got %v", expectedGraph, g))
 	}
 }
