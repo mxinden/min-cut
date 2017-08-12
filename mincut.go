@@ -8,3 +8,11 @@ type graph struct {
 type edge struct {
 	a, b int
 }
+
+type subset struct {
+	parent, rank int
+}
+
+func minCut(g graph) int {
+	return 0
+}

@@ -18,3 +18,22 @@ func TestFileToGraph(t *testing.T) {
 		t.Fatal(fmt.Sprintf("Expected %v, got %v", expectedGraph, g))
 	}
 }
+
+var minCutTests = []struct {
+	g   graph
+	cut int
+}{
+	{
+		graph{0, 0, []edge{}},
+		0,
+	},
+}
+
+func TestMinCut(t *testing.T) {
+	for _, test := range minCutTests {
+		cut := minCut(test.g)
+		if cut != test.cut {
+			t.Fatal(fmt.Sprintf("Expected %v, got %v", test.cut, cut))
+		}
+	}
+}
