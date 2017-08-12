@@ -49,11 +49,13 @@ func parseNode(s string) (node, error) {
 		}
 
 		if i == 0 {
-			n.id = id
+			// zero indexed
+			n.id = id - 1
 			continue
 		}
 
-		n.connTo = append(n.connTo, id)
+		// zero indexed
+		n.connTo = append(n.connTo, id-1)
 	}
 	return n, nil
 }

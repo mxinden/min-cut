@@ -26,7 +26,6 @@ func minCut(g graph) int {
 
 	amountNodes := g.n
 
-	rand.Seed(42)
 	for amountNodes > 2 {
 		e := rand.Intn(len(g.edges))
 
